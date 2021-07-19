@@ -1,14 +1,13 @@
 package com.mit.easyDonationBackendV6.Controller;
 
-import com.mit.easyDonationBackendV6.Dto.AdminApprovalBudgetDto;
-import com.mit.easyDonationBackendV6.Dto.CommonResponse;
-import com.mit.easyDonationBackendV6.Dto.RequirementIdDto;
-import com.mit.easyDonationBackendV6.Dto.VendorBudgetDto;
+import com.mit.easyDonationBackendV6.Dto.*;
 import com.mit.easyDonationBackendV6.Repository.AdminRepository;
 import com.mit.easyDonationBackendV6.Service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -41,5 +40,11 @@ public class AdminController {
     public ResponseEntity<CommonResponse<String>> rejectBudget(@RequestBody AdminApprovalBudgetDto adminApprovalBudgetDto) {
         adminService.rejectBudget(adminApprovalBudgetDto);
         return ResponseEntity.ok(new CommonResponse<>(true, "Budget is rejected"));
+    }
+
+    @PostMapping(value = "/pendingRequirements", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponse<List<LandingPageViewRequirementDto>>> getPendingRequirements() {
+        List<LandingPageViewRequirementDto> landingPageViewRequirementDtoList = adminService.getPendingRequirements();
+        return ResponseEntity.ok(new CommonResponse<>(true, landingPageViewRequirementDtoList));
     }
 }

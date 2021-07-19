@@ -30,4 +30,6 @@ public class VendorController {
         VendorStatisticsDto vendorStatisticsDto = vendorService.getStatistics();
         return ResponseEntity.ok(new CommonResponse<>(true, vendorStatisticsDto));
     }
+
+
 }

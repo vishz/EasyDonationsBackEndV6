@@ -1,6 +1,7 @@
 package com.mit.easyDonationBackendV6.Service.ServiceImpl;
 
 import com.mit.easyDonationBackendV6.Dto.AdminApprovalBudgetDto;
+import com.mit.easyDonationBackendV6.Dto.LandingPageViewRequirementDto;
 import com.mit.easyDonationBackendV6.Dto.RequirementIdDto;
 import com.mit.easyDonationBackendV6.Exception.CustomServiceException;
 import com.mit.easyDonationBackendV6.Model.HospitalRequirement;
@@ -13,6 +14,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -52,5 +56,19 @@ public class AdminServiceImpl implements AdminService {
         VendorBudget vendorBudget = vendorBudgetRepository.findById(adminApprovalBudgetDto.getBudgetId()).orElseThrow(() -> new CustomServiceException("You have not selected the budget properly "));
         vendorBudget.setAdminApproval(1);
         vendorBudgetRepository.save(vendorBudget);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<LandingPageViewRequirementDto> getPendingRequirements() {
+        List<HospitalRequirement> hospitalRequirementList = hospitalRequirementRepository.findAllByAdminApprovalAndDonationStatusAndRequirementStatus(0,0,1);
+        List<LandingPageViewRequirementDto> landingPageViewRequirementDtoList = new ArrayList<>();
+        for (HospitalRequirement hospitalRequirement:hospitalRequirementList) {
+            landingPageViewRequirementDtoList.add(new LandingPageViewRequirementDto(hospitalRequirement.getRequirementDescription(),
+                    hospitalRequirement.getQuantity(),hospitalRequirement.getRequirementItem(),hospitalRequirement.getEstimatedCost(),
+                    hospitalRequirement.getBrand(),hospitalRequirement.getHospital()));
+
+        }
+        return landingPageViewRequirementDtoList;
     }
 }
