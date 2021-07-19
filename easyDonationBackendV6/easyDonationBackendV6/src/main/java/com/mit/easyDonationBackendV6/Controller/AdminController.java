@@ -47,4 +47,22 @@ public class AdminController {
         List<LandingPageViewRequirementDto> landingPageViewRequirementDtoList = adminService.getPendingRequirements();
         return ResponseEntity.ok(new CommonResponse<>(true, landingPageViewRequirementDtoList));
     }
+
+    @PostMapping(value = "/view/allDonations", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponse<List<DonationDto>>> viewAllDonations() {
+        List<DonationDto> donationDtoList = adminService.viewAllDonations();
+        return ResponseEntity.ok(new CommonResponse<>(true, donationDtoList));
+    }
+
+    @PostMapping(value = "/view/allBudgetDetails", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponse<List<BudgetDetailsDto>>> viewAllBudgetDetails() {
+        List<BudgetDetailsDto> budgetDetailsDtoList = adminService.viewAllBudgetDetails();
+        return ResponseEntity.ok(new CommonResponse<>(true, budgetDetailsDtoList));
+    }
+
+    @PostMapping(value = "/view/pendingBudgetDetails", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponse<List<BudgetDetailsDto>>> viewPendingBudgetDetails() {
+        List<BudgetDetailsDto> budgetDetailsDtoList = adminService.viewAllBudgetDetails();
+        return ResponseEntity.ok(new CommonResponse<>(true, budgetDetailsDtoList));
+    }
 }

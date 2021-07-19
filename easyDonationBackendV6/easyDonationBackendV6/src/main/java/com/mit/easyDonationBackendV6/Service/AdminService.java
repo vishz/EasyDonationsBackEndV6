@@ -1,8 +1,6 @@
 package com.mit.easyDonationBackendV6.Service;
 
-import com.mit.easyDonationBackendV6.Dto.AdminApprovalBudgetDto;
-import com.mit.easyDonationBackendV6.Dto.LandingPageViewRequirementDto;
-import com.mit.easyDonationBackendV6.Dto.RequirementIdDto;
+import com.mit.easyDonationBackendV6.Dto.*;
 import com.mit.easyDonationBackendV6.Model.HospitalRequirement;
 
 import java.util.List;
@@ -13,4 +11,7 @@ public interface AdminService {
     void approveBudget(AdminApprovalBudgetDto adminApprovalBudgetDto);
     void rejectBudget(AdminApprovalBudgetDto adminApprovalBudgetDto);
     List<LandingPageViewRequirementDto> getPendingRequirements();
+    List<DonationDto> viewAllDonations();
+    List<BudgetDetailsDto> viewAllBudgetDetails();
+    List<BudgetDetailsDto> viewPendingBudgetDetails();
 }

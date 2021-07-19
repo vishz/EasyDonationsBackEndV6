@@ -1,11 +1,11 @@
 package com.mit.easyDonationBackendV6.Service.ServiceImpl;
 
-import com.mit.easyDonationBackendV6.Dto.AdminApprovalBudgetDto;
-import com.mit.easyDonationBackendV6.Dto.LandingPageViewRequirementDto;
-import com.mit.easyDonationBackendV6.Dto.RequirementIdDto;
+import com.mit.easyDonationBackendV6.Dto.*;
 import com.mit.easyDonationBackendV6.Exception.CustomServiceException;
+import com.mit.easyDonationBackendV6.Model.Donation;
 import com.mit.easyDonationBackendV6.Model.HospitalRequirement;
 import com.mit.easyDonationBackendV6.Model.VendorBudget;
+import com.mit.easyDonationBackendV6.Repository.DonationRepository;
 import com.mit.easyDonationBackendV6.Repository.HospitalRequirementRepository;
 import com.mit.easyDonationBackendV6.Repository.VendorBudgetRepository;
 import com.mit.easyDonationBackendV6.Service.AdminService;
@@ -25,6 +25,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     private final HospitalRequirementRepository hospitalRequirementRepository;
     private final VendorBudgetRepository vendorBudgetRepository;
+    private final DonationRepository donationRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
@@ -70,5 +71,46 @@ public class AdminServiceImpl implements AdminService {
 
         }
         return landingPageViewRequirementDtoList;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<DonationDto> viewAllDonations() {
+       List<Donation> donation = donationRepository.findAll();
+       System.out.print(donation);
+       List<DonationDto> donationDtoList = new ArrayList<>();
+        for (Donation donation1: donation) {
+
+            donationDtoList.add(new DonationDto(donation1.getDonationType(),donation1.getDonationAmount(),donation1.getDonor(),
+                    donation1.getHospitalRequirement()));
+
+        }
+        return donationDtoList;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<BudgetDetailsDto> viewAllBudgetDetails() {
+        List<VendorBudget>  vendorBudgetList= vendorBudgetRepository.findAll();
+        List<BudgetDetailsDto> budgetDetailsDtoList = new ArrayList<>();
+        for (VendorBudget vendorBudget: vendorBudgetList) {
+            budgetDetailsDtoList.add(new BudgetDetailsDto(vendorBudget.getPricePerOneItem(),vendorBudget.getQuantity(),
+                    vendorBudget.getAdminApproval(),vendorBudget.getHospitalRequirement(),vendorBudget.getVendor()));
+
+        }
+        return budgetDetailsDtoList;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<BudgetDetailsDto> viewPendingBudgetDetails() {
+        List<VendorBudget>  vendorBudgetList= vendorBudgetRepository.findAllByAdminApproval(0);
+        List<BudgetDetailsDto> budgetDetailsDtoList = new ArrayList<>();
+        for (VendorBudget vendorBudget: vendorBudgetList) {
+            budgetDetailsDtoList.add(new BudgetDetailsDto(vendorBudget.getPricePerOneItem(),vendorBudget.getQuantity(),
+                    vendorBudget.getAdminApproval(),vendorBudget.getHospitalRequirement(),vendorBudget.getVendor()));
+
+        }
+        return budgetDetailsDtoList;
     }
 }

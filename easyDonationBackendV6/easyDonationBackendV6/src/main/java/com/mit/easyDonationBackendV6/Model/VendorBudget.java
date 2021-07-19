@@ -15,6 +15,7 @@ public class VendorBudget {
     private String id;
     private String pricePerOneItem;
     private String Quantity;
+    //0=pending
     private int adminApproval;
     private HospitalRequirement hospitalRequirement;
     private Vendor vendor;
