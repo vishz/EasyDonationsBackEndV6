@@ -2,6 +2,7 @@ package com.mit.easyDonationBackendV6.Service.ServiceImpl;
 
 import com.mit.easyDonationBackendV6.Dto.VendorBudgetDto;
 import com.mit.easyDonationBackendV6.Dto.VendorRequirementViewDto;
+import com.mit.easyDonationBackendV6.Dto.VendorStatisticsDto;
 import com.mit.easyDonationBackendV6.Exception.CustomServiceException;
 import com.mit.easyDonationBackendV6.Model.HospitalRequirement;
 import com.mit.easyDonationBackendV6.Model.Vendor;
@@ -30,6 +31,7 @@ public class VendorServiceImpl implements VendorService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<VendorRequirementViewDto> viewRequirements() {
+
         return null;
     }
 
@@ -42,5 +44,14 @@ public class VendorServiceImpl implements VendorService {
         VendorBudget vendorBudget = new VendorBudget(vendorBudgetDto.getPricePerOneItem(), vendorBudgetDto.getQuantity(), 0,
                 hospitalRequirement, vendor);
         vendorBudgetRepository.save(vendorBudget);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public VendorStatisticsDto getStatistics() {
+        int noOfBudgetSubmissions=5;
+        int noOfPurchases=1;
+
+        return new VendorStatisticsDto(noOfBudgetSubmissions,noOfPurchases);
     }
 }
