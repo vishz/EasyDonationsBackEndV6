@@ -43,9 +43,10 @@ public class LandingPageServiceImpl implements LandingPageService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<LandingPageViewRequirementDto> getAllRequirements() {
         List<HospitalRequirement> hospitalRequirementList = hospitalRequirementRepository.findAllByAdminApprovalAndDonationStatusAndRequirementStatus(2,0,1);
+        System.out.print(hospitalRequirementList);
         List<LandingPageViewRequirementDto> landingPageViewRequirementDtoList = new ArrayList<>();
         for (HospitalRequirement hospitalRequirement:hospitalRequirementList) {
-            landingPageViewRequirementDtoList.add(new LandingPageViewRequirementDto(hospitalRequirement.getRequirementDescription(),
+            landingPageViewRequirementDtoList.add(new LandingPageViewRequirementDto(hospitalRequirement.getId(),hospitalRequirement.getRequirementDescription(),
                     hospitalRequirement.getQuantity(),hospitalRequirement.getRequirementItem(),hospitalRequirement.getEstimatedCost(),
                     hospitalRequirement.getBrand(),hospitalRequirement.getHospital()));
 

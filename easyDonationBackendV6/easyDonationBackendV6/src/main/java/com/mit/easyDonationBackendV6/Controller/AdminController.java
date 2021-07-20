@@ -62,7 +62,7 @@ public class AdminController {
 
     @PostMapping(value = "/view/pendingBudgetDetails", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CommonResponse<List<BudgetDetailsDto>>> viewPendingBudgetDetails() {
-        List<BudgetDetailsDto> budgetDetailsDtoList = adminService.viewAllBudgetDetails();
+        List<BudgetDetailsDto> budgetDetailsDtoList = adminService.viewPendingBudgetDetails();
         return ResponseEntity.ok(new CommonResponse<>(true, budgetDetailsDtoList));
     }
 }

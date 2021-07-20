@@ -65,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
         List<HospitalRequirement> hospitalRequirementList = hospitalRequirementRepository.findAllByAdminApprovalAndDonationStatusAndRequirementStatus(0,0,1);
         List<LandingPageViewRequirementDto> landingPageViewRequirementDtoList = new ArrayList<>();
         for (HospitalRequirement hospitalRequirement:hospitalRequirementList) {
-            landingPageViewRequirementDtoList.add(new LandingPageViewRequirementDto(hospitalRequirement.getRequirementDescription(),
+            landingPageViewRequirementDtoList.add(new LandingPageViewRequirementDto(hospitalRequirement.getId(),hospitalRequirement.getRequirementDescription(),
                     hospitalRequirement.getQuantity(),hospitalRequirement.getRequirementItem(),hospitalRequirement.getEstimatedCost(),
                     hospitalRequirement.getBrand(),hospitalRequirement.getHospital()));
 
@@ -107,7 +107,7 @@ public class AdminServiceImpl implements AdminService {
         List<VendorBudget>  vendorBudgetList= vendorBudgetRepository.findAllByAdminApproval(0);
         List<BudgetDetailsDto> budgetDetailsDtoList = new ArrayList<>();
         for (VendorBudget vendorBudget: vendorBudgetList) {
-            budgetDetailsDtoList.add(new BudgetDetailsDto(vendorBudget.getPricePerOneItem(),vendorBudget.getQuantity(),
+            budgetDetailsDtoList.add(new BudgetDetailsDto(vendorBudget.getId(),vendorBudget.getPricePerOneItem(),vendorBudget.getQuantity(),
                     vendorBudget.getAdminApproval(),vendorBudget.getHospitalRequirement(),vendorBudget.getVendor()));
 
         }
