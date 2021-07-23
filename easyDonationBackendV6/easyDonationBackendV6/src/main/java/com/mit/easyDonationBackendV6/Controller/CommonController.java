@@ -34,6 +34,7 @@ public class CommonController {
 
     @PostMapping(value = "/signUp", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CommonResponse<String>> signUp(@RequestBody RegistrationDto registrationDto) {
+        System.out.print(registrationDto);
         commonService.signUp(registrationDto);
         return ResponseEntity.ok(new CommonResponse<>(true, "you have successfully signed up"));
     }

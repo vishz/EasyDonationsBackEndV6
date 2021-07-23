@@ -29,12 +29,24 @@ public class LandingPageServiceImpl implements LandingPageService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public LandingPageStatisticsDto getLandingPageStatistics() {
-       int noOfDonors = 2;
-       int noOfHospitals = 3;
-       int noOfDonations = 5;
-       int noOfRequirements = 10;
-       int noOfOpenRequirements = 5;
-       int noOfCloseRequirements = 5;
+
+        long countDonors = donorRepository.count();
+        int noOfDonors = (int) countDonors;
+        System.out.print("value is"+noOfDonors);
+        long countHospitals = hospitalRepository.count();
+        int  noOfHospitals= (int) countHospitals;
+        System.out.print("value is"+noOfHospitals);
+        long countDonations = hospitalRepository.count();
+        int  noOfDonations= (int) countDonations;
+        System.out.print("value is"+noOfDonations);
+        int noOfRequirements = 10;
+        long countOpenRequirements = hospitalRequirementRepository.countByRequirementStatusAndDonationStatusAndAdminApproval(1,0,2);
+        int  noOfOpenRequirements= (int) countOpenRequirements;
+        System.out.print("open is"+noOfOpenRequirements);
+        long countCloseRequirements = hospitalRequirementRepository.countByRequirementStatusAndDonationStatusAndAdminApproval(1,1,2);
+        int  noOfCloseRequirements= (int) countCloseRequirements;
+//       int noOfCloseRequirements = 5;
+        System.out.print("close is"+noOfCloseRequirements);
         return new LandingPageStatisticsDto(noOfDonors,noOfHospitals,
                 noOfDonations,noOfRequirements,noOfOpenRequirements,noOfCloseRequirements);
     }

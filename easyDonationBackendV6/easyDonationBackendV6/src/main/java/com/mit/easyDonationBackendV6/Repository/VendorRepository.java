@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface VendorRepository extends MongoRepository<Vendor, String> {
     Optional<Vendor> findByUserName(String userName);
+
 }

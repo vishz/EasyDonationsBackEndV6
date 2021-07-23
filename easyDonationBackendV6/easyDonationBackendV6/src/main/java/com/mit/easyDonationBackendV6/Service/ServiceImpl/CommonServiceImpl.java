@@ -61,6 +61,7 @@ public class CommonServiceImpl implements CommonService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void signUp(RegistrationDto registrationDto) {
+        System.out.print(registrationDto);
         if(registrationDto.getRole().equals("ADMIN")){
             Optional<Admin> admin= adminRepository.findByUserName(registrationDto.getUserName());
             if(!admin.isPresent()){;

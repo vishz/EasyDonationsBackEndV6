@@ -16,5 +16,6 @@ public interface HospitalRequirementRepository extends MongoRepository<HospitalR
         Long countByHospitalAndDonationStatus(Hospital hospital,int donationStatus);
         List<HospitalRequirement> findAllByHospitalAndRequirementStatus(Hospital hospital, int requirementStatus);
         List<HospitalRequirement> findAllByAdminApprovalAndDonationStatusAndRequirementStatus(int AdminApproval, int DonationStatus,int RequirementStatus );
-
+        List<HospitalRequirement> findAllByRequirementStatusAndDonationStatus(int RequirementStatus, int DonationStatus);
+        Long countByRequirementStatusAndDonationStatusAndAdminApproval(int RequirementStatus, int DonationStatus, int adminApproval);
 }

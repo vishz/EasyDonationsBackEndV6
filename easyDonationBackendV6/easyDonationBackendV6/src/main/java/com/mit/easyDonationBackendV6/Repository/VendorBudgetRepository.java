@@ -1,5 +1,6 @@
 package com.mit.easyDonationBackendV6.Repository;
 
+import com.mit.easyDonationBackendV6.Model.Vendor;
 import com.mit.easyDonationBackendV6.Model.VendorBudget;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -10,6 +11,6 @@ public interface VendorBudgetRepository extends MongoRepository<VendorBudget,Str
     Optional<VendorBudget> findById(String id);
     List<VendorBudget> findAll();
     List<VendorBudget> findAllByAdminApproval(int adminApproval);
-
+    Long countByVendor(Vendor vendor);
 
 }
