@@ -9,6 +9,7 @@ import java.util.List;
 public interface DonationRepository extends MongoRepository<Donation,String> {
     List<Donation> findAll();
     Long countByDonor(Donor donor);
+    List<Donation> findAllByDonor(Donor donor);
 
 
 }

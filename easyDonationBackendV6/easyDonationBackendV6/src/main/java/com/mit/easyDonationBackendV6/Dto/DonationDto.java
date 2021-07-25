@@ -14,4 +14,10 @@ public class DonationDto {
     private String donationAmount;
     private Donor donor;
     private HospitalRequirement hospitalRequirement;
+
+    public DonationDto( String donationType, String donationAmount,  HospitalRequirement hospitalRequirement) {
+        this.donationType = donationType;
+        this.donationAmount = donationAmount;
+        this.hospitalRequirement = hospitalRequirement;
+    }
 }
