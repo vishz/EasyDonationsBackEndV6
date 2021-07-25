@@ -5,14 +5,8 @@ import com.mit.easyDonationBackendV6.Dto.DonorUserNameDto;
 import com.mit.easyDonationBackendV6.Dto.HospitalUsernameDto;
 import com.mit.easyDonationBackendV6.Dto.ReportXYDto;
 import com.mit.easyDonationBackendV6.Exception.CustomServiceException;
-import com.mit.easyDonationBackendV6.Model.Donation;
-import com.mit.easyDonationBackendV6.Model.Hospital;
-import com.mit.easyDonationBackendV6.Model.HospitalRequirement;
-import com.mit.easyDonationBackendV6.Model.VendorBudget;
-import com.mit.easyDonationBackendV6.Repository.DonationRepository;
-import com.mit.easyDonationBackendV6.Repository.HospitalRepository;
-import com.mit.easyDonationBackendV6.Repository.HospitalRequirementRepository;
-import com.mit.easyDonationBackendV6.Repository.VendorBudgetRepository;
+import com.mit.easyDonationBackendV6.Model.*;
+import com.mit.easyDonationBackendV6.Repository.*;
 import com.mit.easyDonationBackendV6.Service.ReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,11 +26,14 @@ public class ReportServiceImpl implements ReportService {
     private final HospitalRequirementRepository hospitalRequirementRepository;
     private final VendorBudgetRepository vendorBudgetRepository;
     private final HospitalRepository hospitalRepository;
+    private final DonorRepository donorRepository;
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<ReportXYDto> getDonationTimeDetails() {
         List<ReportXYDto> reportXYDtoList = new ArrayList<>();
+        long total = donationRepository.count();
+        int totalInt = (int) total;
         String month = null;
         int donations = 0;
         for (int i = 1; i <13 ; i++) {
@@ -60,7 +57,7 @@ public class ReportServiceImpl implements ReportService {
                 donations = 7;
             }if(i == 7){
                 month = "July";
-                donations = 8;
+                donations = totalInt;
             }if(i == 8){
                 month = "August";
                 donations = 0;
@@ -87,6 +84,8 @@ public class ReportServiceImpl implements ReportService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<ReportXYDto> getDonationRequestsTimeDetails() {
         List<ReportXYDto> reportXYDtoList = new ArrayList<>();
+        long total = hospitalRequirementRepository.count();
+        int totalInt = (int) total;
         String month = null;
         int donationRequests = 0;
         for (int i = 1; i <13 ; i++) {
@@ -110,7 +109,7 @@ public class ReportServiceImpl implements ReportService {
                 donationRequests = 14;
             }if(i == 7){
                 month = "July";
-                donationRequests = 14;
+                donationRequests = totalInt;
             }if(i == 8){
                 month = "August";
                 donationRequests = 0;
@@ -137,6 +136,8 @@ public class ReportServiceImpl implements ReportService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<ReportXYDto> getBudgetTimeDetails() {
         List<ReportXYDto> reportXYDtoList = new ArrayList<>();
+        long total = vendorBudgetRepository.count();
+        int totalInt = (int) total;
         String month = null;
         int budgets = 0;
         for (int i = 1; i <13 ; i++) {
@@ -160,7 +161,7 @@ public class ReportServiceImpl implements ReportService {
                 budgets = 5;
             }if(i == 7){
                 month = "July";
-                budgets = 7;
+                budgets = totalInt;
             }if(i == 8){
                 month = "August";
                 budgets = 0;
@@ -223,6 +224,9 @@ public class ReportServiceImpl implements ReportService {
     public List<ReportXYDto> getTimeDonationsDetails(DonorUserNameDto donorUserNameDto) {
         List<ReportXYDto> reportXYDtoList = new ArrayList<>();
         String month = null;
+        Donor donor = donorRepository.findByUserName(donorUserNameDto.getUserName()).orElseThrow(() -> new CustomServiceException(" Donor not found"));
+        long count = donationRepository.countByDonor(donor);
+        int  total= (int) count;
         int donations = 0;
         for (int i = 1; i <13 ; i++) {
             if(i == 1){
@@ -245,7 +249,7 @@ public class ReportServiceImpl implements ReportService {
                 donations = 3;
             }if(i == 7){
                 month = "July";
-                donations = 0;
+                donations = total;
             }if(i == 8){
                 month = "August";
                 donations = 0;
