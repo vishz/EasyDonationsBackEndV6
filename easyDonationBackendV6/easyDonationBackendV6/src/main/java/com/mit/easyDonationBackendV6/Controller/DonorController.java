@@ -2,6 +2,7 @@ package com.mit.easyDonationBackendV6.Controller;
 
 import com.mit.easyDonationBackendV6.Dto.CommonResponse;
 import com.mit.easyDonationBackendV6.Dto.DonateDto;
+import com.mit.easyDonationBackendV6.Dto.DonorUserNameDto;
 import com.mit.easyDonationBackendV6.Dto.HospitalRequirementSubmittingDto;
 import com.mit.easyDonationBackendV6.Service.DonorService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,13 @@ public class DonorController {
     public ResponseEntity<CommonResponse<String>> donate(@RequestBody DonateDto donateDto) {
         donorService.donate(donateDto);
         return ResponseEntity.ok(new CommonResponse<>(true, "You have Successfully Completed the Donation"));
+    }
+
+
+
+    @PostMapping(value = "/count/donations", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponse<Integer>> donate(@RequestBody DonorUserNameDto donorUserNameDto) {
+        int donationCount = donorService.donationsCount(donorUserNameDto);
+        return ResponseEntity.ok(new CommonResponse<>(true, donationCount));
     }
 }

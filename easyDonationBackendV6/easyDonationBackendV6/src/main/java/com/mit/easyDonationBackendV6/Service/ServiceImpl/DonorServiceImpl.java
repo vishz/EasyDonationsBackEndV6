@@ -1,6 +1,7 @@
 package com.mit.easyDonationBackendV6.Service.ServiceImpl;
 
 import com.mit.easyDonationBackendV6.Dto.DonateDto;
+import com.mit.easyDonationBackendV6.Dto.DonorUserNameDto;
 import com.mit.easyDonationBackendV6.Exception.CustomServiceException;
 import com.mit.easyDonationBackendV6.Model.*;
 import com.mit.easyDonationBackendV6.Repository.AccountDetailRepository;
@@ -34,5 +35,15 @@ public class DonorServiceImpl implements DonorService {
         donationRepository.save(donation);
         AccountDetail accountDetail = new AccountDetail(donateDto.getBankName(),donateDto.getCardNumber(),donateDto.getExpireDate(),donateDto.getCvvNumber(),donor);
         accountDetailRepository.save(accountDetail);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public int donationsCount(DonorUserNameDto donorUserNameDto) {
+        Donor donor = donorRepository.findByUserName(donorUserNameDto.getUserName()).orElseThrow(() -> new CustomServiceException(" Donor not found"));
+        long count = donationRepository.countByDonor(donor);
+//        int noOfTotalDonations =
+        int noOfTotalDonations = (int) count;
+        return noOfTotalDonations;
     }
 }
