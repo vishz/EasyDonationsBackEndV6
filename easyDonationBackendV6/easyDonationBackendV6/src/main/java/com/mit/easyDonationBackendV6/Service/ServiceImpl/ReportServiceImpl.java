@@ -69,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
                 donations = 0;
             }if(i == 11){
                 month = "November";
-                donations = 1;
+                donations = 0;
             }if(i == 12){
                 month = "December";
                 donations = 0;
@@ -121,7 +121,7 @@ public class ReportServiceImpl implements ReportService {
                 donationRequests = 0;
             }if(i == 11){
                 month = "November";
-                donationRequests = 1;
+                donationRequests = 0;
             }if(i == 12){
                 month = "December";
                 donationRequests = 0;
@@ -173,7 +173,7 @@ public class ReportServiceImpl implements ReportService {
                 budgets = 0;
             }if(i == 11){
                 month = "November";
-                budgets = 1;
+                budgets = 0;
             }if(i == 12){
                 month = "December";
                 budgets = 0;
@@ -261,7 +261,7 @@ public class ReportServiceImpl implements ReportService {
                 donations = 0;
             }if(i == 11){
                 month = "November";
-                donations = 1;
+                donations = 0;
             }if(i == 12){
                 month = "December";
                 donations = 0;
