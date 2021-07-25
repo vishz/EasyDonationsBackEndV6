@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -18,6 +19,7 @@ public class Donation {
     private String donationAmount;
     private Donor donor;
     private HospitalRequirement hospitalRequirement;
+
 
     public Donation(String donationType, String donationAmount, Donor donor, HospitalRequirement hospitalRequirement) {
         this.donationType = donationType;

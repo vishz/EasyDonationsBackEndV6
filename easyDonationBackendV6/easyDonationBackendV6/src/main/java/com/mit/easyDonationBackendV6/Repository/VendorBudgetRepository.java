@@ -14,5 +14,5 @@ public interface VendorBudgetRepository extends MongoRepository<VendorBudget,Str
     List<VendorBudget> findAllByAdminApproval(int adminApproval);
     Long countByVendor(Vendor vendor);
     List<VendorBudget> findByHospitalRequirement(HospitalRequirement hospitalRequirement);
-
+    Long countByHospitalRequirement(HospitalRequirement hospitalRequirement);
 }
